@@ -21,21 +21,27 @@ app.post('/newElement', (req, res) => {
         console.log(myQueue)
     } else {
         console.log('type error')
-        res.json('type error')
+        res.status(400).json('type error')
     }
 });
 
 app.delete('/remove', (req, res) => {
-    if (myQueue.length == 0) return "Queue Is Empty";
+    if (myQueue.length == 0) {
+        res.json("Queue Is Empty")
+        return "Queue Is Empty"
+    }
     const pop = myQueue[0]
     myQueue.splice(0, 1);
     console.log(pop, ' deleted from queue')
-    res.json(pop + ' deleted from queue')
+    res.json(pop + ' deleted from queue, in queue now ' + myQueue.length + ' elements')
     console.log(myQueue)
 });
 
 app.get('/top', (req, res) => {
-    if (myQueue.length == 0) return "Queue Is Empty";
+    if (myQueue.length == 0) {
+        res.json("Queue Is Empty")
+        return "Queue Is Empty"
+    }
     const peek = myQueue[0]
     console.log(peek, ' is top element of queue')
     res.json(peek + ' is top element of queue');
@@ -43,7 +49,10 @@ app.get('/top', (req, res) => {
 });
 
 app.get('/size', (req, res) => {
-    if (myQueue.length == 0) return "Queue Is Empty";
+    if (myQueue.length == 0) {
+        res.json("Queue Is Empty")
+        return "Queue Is Empty"
+    }
     const length_queue = myQueue.length
     console.log('Size of queue is ', length_queue)
     res.json('Size of queue is ' + length_queue);
@@ -55,7 +64,7 @@ app.listen(5000, () => {
    
 });
 
-
+module.exports = app
 
 // Task:
 // Insert/remove/peek/size
