@@ -26,30 +26,27 @@ describe("POST:", () => {
     })
 })
 
+describe("POST:", () => {
+  test("when input don't correct (symbols)", async () => {
+    const response = await request(app).post("/newElement").send('---!')
+    expect(response.statusCode).toBe(400)
+  })
+})
 
+describe("POST:", () => {
+    test("when input don't correct (string)", async () => {
+    const response = await request(app).post("/newElement").set('content-type', 'empty').send('user')
+    expect(response.statusCode).toBe(400)
+  })
+})
 
-// describe("POST:", () => {
-//   afterAll(async () => {await request(app).delete("/remove")})
-//   it("when input don't correct (without value)", async () => {
-//     const bodyData = [{user}]
-//     for (const body of bodyData) {
-//       const response = await request(app).post("/newElement").send(body)
-//       expect(response.statusCode).toBe(400)
-//     }
-//   })
-// })
-
-// describe("POST:", () => {
-//   test("when input don't correct (string)", async () => {
-//     const bodyData = ['user']
-//     for (const body of bodyData) {
-//       const response = await request(app).post("/newElement").send(body)
-//       expect(response.headers['content-type']).not.toEqual(expect.stringContaining("json"))
-//     }
-//   })
-// })
-
-
+describe("POST:", () => {
+  afterAll(async () => {await request(app).delete("/remove")})
+  it("when input don't correct (without value)", async () => {
+    const response = await request(app).post("/newElement").send({user: ""})
+    expect(response.statusCode).toBe(200)
+    })
+})
 
 describe("POST:", () => {
   afterAll(async () => {await request(app).delete("/remove")})
